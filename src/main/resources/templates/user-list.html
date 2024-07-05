@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        .btn {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div th:switch="${users}">
+    <h2 th:case="null">No users found!</h2>
+    <div th:case="*">
+        <h2>Users</h2>
+        <table style="width: 100%;">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Age</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.age}"></td>
+                <td class="center">
+                    <a th:href="@{user-update/{id}(id=${user.id})}" class="btn">Edit</a>
+                    <a th:href="@{user-delete/{id}(id=${user.id})}" class="btn">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="center"><a href="/user-create" class="btn">Create user</a></p>
+</div>
+</body>
+</html>
